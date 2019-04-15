@@ -6,10 +6,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.StringJoiner;
 
-@SuppressWarnings("JpaQlInspection")
-@NamedQueries({
-})
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_time", "restaurant_id"}, name = "votes_unique_date_time_restaurant_id_idx")})
 public class Vote extends AbstractBaseEntity {
@@ -21,7 +19,7 @@ public class Vote extends AbstractBaseEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurant restaurant_id;
+    private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,13 +30,9 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(LocalDateTime dateTime) {
-        this(null, dateTime);
-    }
-
-    public Vote(Integer id, LocalDateTime dateTime) {
+    public Vote(Integer id) {
         super(id);
-        this.dateTime = dateTime;
+        this.dateTime = LocalDateTime.now();
     }
 
     public LocalDateTime getDateTime() {
@@ -49,12 +43,12 @@ public class Vote extends AbstractBaseEntity {
         this.dateTime = dateTime;
     }
 
-    public Restaurant getRestaurant_id() {
-        return restaurant_id;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurant_id(Restaurant restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public User getUser() {
@@ -67,9 +61,11 @@ public class Vote extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return "Meal{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                '}';
+        return new StringJoiner(", ", Vote.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("dateTime=" + dateTime)
+                .add("user=" + user)
+                .add("restaurant=" + restaurant)
+                .toString();
     }
 }

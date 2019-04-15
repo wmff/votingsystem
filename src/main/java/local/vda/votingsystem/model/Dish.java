@@ -2,36 +2,24 @@ package local.vda.votingsystem.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.StringJoiner;
 
-@SuppressWarnings("JpaQlInspection")
-@NamedQueries({
-        @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dishes d WHERE d.user.id=:userId ORDER BY d.date, d.restaurant_id"),
-        @NamedQuery(name = Dish.GET_BY_DATE, query = "SELECT d FROM Dishes d " +
-                "WHERE d.restaurant.id=:restaurantId AND d.date = :date ORDER BY d.date DESC"),
-})
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "dishes_unique_restaurant_id_date_idx")})
 public class Dish extends AbstractNamedEntity {
-    public static final String ALL_SORTED = "Dish.getAll";
-    public static final String GET_BY_DATE = "Dish.getByDate";
-
     @Column(name = "date", nullable = false)
     @NotNull
     private LocalDate date;
 
     @Column(name = "price", nullable = false)
-    @NotBlank
-    @Size(min = 2, max = 120)
-    private int price;
-
-    @Column(name = "restaurant_id", nullable = false)
-    private int restaurantId;
+    @NotNull
+    @Range(min = 1, max = 1000000)
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -68,14 +56,6 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -86,11 +66,12 @@ public class Dish extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name=" + name +
-                ", price=" + price +
-                ", date='" + date +
-                '}';
+        return new StringJoiner(", ", Dish.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("date=" + date)
+                .add("price=" + price)
+                .add("restaurant=" + restaurant)
+                .toString();
     }
 }

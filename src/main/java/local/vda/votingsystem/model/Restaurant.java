@@ -3,22 +3,20 @@ package local.vda.votingsystem.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.StringJoiner;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@NamedQueries({
-        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurants r WHERE r.id=:id"),
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurants r ORDER BY r.name"),
-})
 @Entity
-@Table(name = "restaurant")
+@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurants_unique_name_idx")})
 public class Restaurant extends AbstractNamedEntity {
 
-    public static final String DELETE = "Restaurant.delete";
-    public static final String ALL_SORTED = "Restaurant.getAllSorted";
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private List<Dish> dishes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private List<Vote> votes;
 
     public Restaurant() {
     }
@@ -27,15 +25,35 @@ public class Restaurant extends AbstractNamedEntity {
         this(u.getId(), u.getName());
     }
 
+    public Restaurant(String name) {
+        super(null, name);
+    }
+
     public Restaurant(Integer id, String name) {
         super(id, name);
     }
 
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name=" + name +
-                '}';
+        return new StringJoiner(", ", Restaurant.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .toString();
     }
 }

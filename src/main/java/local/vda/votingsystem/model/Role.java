@@ -1,6 +1,11 @@
 package local.vda.votingsystem.model;
 
-public enum Role {
+public enum Role implements GrantedAuthority {
     ROLE_USER,
-    ROLE_ADMIN
+    ROLE_ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
