@@ -19,7 +19,7 @@ public class RootController {
     }
 
 //    @Autowired
-//    private MealService mealService;
+//    private DishService mealService;
 
     @GetMapping("/")
     public String root() {

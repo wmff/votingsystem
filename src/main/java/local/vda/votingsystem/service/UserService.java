@@ -7,7 +7,6 @@ import local.vda.votingsystem.util.exception.NotFoundException;
 import java.util.List;
 
 public interface UserService {
-
     User create(User user);
 
     void delete(int id) throws NotFoundException;
@@ -19,4 +18,6 @@ public interface UserService {
     void update(User user);
 
     List<User> getAll();
+
+    void enable(int id, boolean enable);
 }

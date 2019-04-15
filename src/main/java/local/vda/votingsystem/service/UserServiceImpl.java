@@ -9,6 +9,7 @@ import local.vda.votingsystem.model.User;
 import local.vda.votingsystem.repository.UserRepository;
 import local.vda.votingsystem.util.exception.NotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static local.vda.votingsystem.util.ValidationUtil.checkNotFound;
@@ -59,5 +60,13 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         checkNotFoundWithId(repository.save(user), user.getId());
+    }
+
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        repository.save(user);  // !! need only for JDBC implementation
     }
 }
