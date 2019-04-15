@@ -42,7 +42,7 @@ public class RootController {
 //    @GetMapping("/meals")
 //    public String meals(Model model) {
 //        model.addAttribute("meals", MealsUtil.getWithExcess(
-//                mealService.getAll(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay()
+//                mealService.getByDate(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay()
 //        ));
 //        return "meals";
 //    }
