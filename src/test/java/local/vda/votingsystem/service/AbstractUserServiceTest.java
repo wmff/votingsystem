@@ -1,20 +1,20 @@
 package local.vda.votingsystem.service;
 
+import local.vda.votingsystem.model.Role;
+import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
-import local.vda.votingsystem.model.Role;
-import local.vda.votingsystem.model.User;
-import local.vda.votingsystem.util.exception.NotFoundException;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static local.vda.votingsystem.UserTestData.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
@@ -78,7 +78,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     void update() throws Exception {
         User updated = new User(USER);
         updated.setName("UpdatedName");
-        updated.setCaloriesPerDay(330);
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         service.update(new User(updated));
         assertMatch(service.get(USER_ID), updated);
@@ -91,10 +90,10 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void setEnable() {
-        service.setEnabled(USER_ID, false);
+    void enable() {
+        service.enable(USER_ID, false);
         assertFalse(service.get(USER_ID).isEnabled());
-        service.setEnabled(USER_ID, true);
+        service.enable(USER_ID, true);
         assertTrue(service.get(USER_ID).isEnabled());
     }
 }

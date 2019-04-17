@@ -1,23 +1,33 @@
 package local.vda.votingsystem.web;
 
-import static local.vda.votingsystem.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
+import local.vda.votingsystem.AuthorizedUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import static java.util.Objects.requireNonNull;
 
 public class SecurityUtil {
 
     private SecurityUtil() {
     }
 
-    private static int id = 100000;
+    public static AuthorizedUser safeGet() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
+    }
+
+    public static AuthorizedUser get() {
+        AuthorizedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
+    }
 
     public static int authUserId() {
-        return id;
+        return get().getUserTo().getId();
     }
 
-    public static void setAuthUserId(int id) {
-        SecurityUtil.id = id;
-    }
-
-    public static int authUserCaloriesPerDay() {
-        return DEFAULT_CALORIES_PER_DAY;
-    }
 }

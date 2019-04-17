@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static local.vda.votingsystem.util.DateTimeUtil.TIME_END_VOTING;
@@ -14,19 +15,17 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteServiceImpl implements VoteService {
-    private final VoteRepository voteRepository;
-    private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    public VoteServiceImpl(VoteRepository voteRepository, RestaurantRepository restaurantRepository) {
-        this.voteRepository = voteRepository;
-        this.restaurantRepository = restaurantRepository;
-    }
+    private VoteRepository voteRepository;
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Override
     public Vote set(int restaurantId, int userId) {
         checkNotFoundWithId(restaurantRepository.get(restaurantId), restaurantId);
-        Vote vote = get(userId, LocalDate.now());
+        Vote vote = get(userId, LocalDateTime.now());
         if (!vote.isNew()) {
             if (LocalTime.now().isAfter(TIME_END_VOTING)) {
                 throw new RuntimeException("time voting exprired");
@@ -36,7 +35,7 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote get(int userId, LocalDate date) {
-        return checkNotFoundWithId(voteRepository.get(userId, date), userId);
+    public Vote get(int userId, LocalDateTime dateTime) {
+        return checkNotFoundWithId(voteRepository.get(userId, dateTime), userId);
     }
 }

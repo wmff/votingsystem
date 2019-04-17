@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import java.io.IOException;
 import java.util.List;
 
-import static ru.javawebinar.topjava.web.json.JacksonObjectMapper.getMapper;
+import static local.vda.votingsystem.web.json.JacksonObjectMapper.getMapper;
+
 
 public class JsonUtil {
 

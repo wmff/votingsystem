@@ -13,12 +13,9 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class DishServiceImpl implements DishService {
-    private final DishRepository repository;
 
     @Autowired
-    public DishServiceImpl(DishRepository repository) {
-        this.repository = repository;
-    }
+    private DishRepository repository;
 
     @Override
     public Dish get(int id, int restaurantId) {

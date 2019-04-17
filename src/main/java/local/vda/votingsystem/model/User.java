@@ -3,7 +3,6 @@ package local.vda.votingsystem.model;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -123,8 +122,6 @@ public class User extends AbstractNamedEntity {
                 .add("name='" + name + "'")
                 .add("enabled=" + enabled)
                 .add("registered=" + registered)
-                .add("roles=" + roles)
-                .add("votes=" + votes)
                 .toString();
     }
 }

@@ -1,8 +1,8 @@
 package local.vda.votingsystem;
 
+import local.vda.votingsystem.web.json.JsonUtil;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import local.vda.votingsystem.web.json.JsonUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
