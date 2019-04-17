@@ -21,22 +21,18 @@ VALUES ('ROLE_USER', 100000),
        ('ROLE_USER', 100001);
 
 INSERT INTO RESTAURANTS (NAME)
-VALUES ('KFC'),
-       ('MCDonalds');
+VALUES ('restaurant 1'),
+       ('restaurant 2');
 
 INSERT INTO DISHES (NAME, PRICE, DATE, RESTAURANT_ID)
-VALUES ('Double dark burger', 25900, '2019-03-21', 100002),
-       ('9 strips original', 26900, '2019-03-21', 100002),
-       ('Cheefs lemonade', 8900, '2019-03-21', 100002),
-       ('Big Mac Bacon', 23900, '2019-03-21', 100003),
-       ('4 piece Chicken McNuggets', 14900, '2019-03-21', 100003),
-       ('Pepsi', 8900, '2019-03-21', 100003),
-       ('Double dark burger', 25900, '2019-03-22', 100002),
-       ('9 strips original', 26900, '2019-03-22', 100002),
-       ('Cheefs lemonade', 8900, '2019-03-22', 100002),
-       ('Big Mac Bacon', 23900, '2019-03-22', 100003),
-       ('4 piece Chicken McNuggets', 14900, '2019-03-22', 100003),
-       ('Pepsi', 8900, '2019-03-22', 100003);
+VALUES ('dish 1', 25900, '2019-03-21', 100002),
+       ('dish 2', 26900, '2019-03-21', 100002),
+       ('dish 3', 23900, '2019-03-21', 100003),
+       ('dish 4', 14900, '2019-03-21', 100003),
+       ('dish 5', 25900, '2019-03-22', 100002),
+       ('dish 6', 26900, '2019-03-22', 100002),
+       ('dish 7', 23900, '2019-03-22', 100003),
+       ('dish 8', 14900, '2019-03-22', 100003);
 
 INSERT INTO VOTES (DATE_TIME, RESTAURANT_ID, USER_ID)
 VALUES ('2019-03-21 10:00:00', 100003, 100000),

@@ -1,6 +1,5 @@
 package local.vda.votingsystem.repository.datajpa;
 
-import local.vda.votingsystem.model.Dish;
 import local.vda.votingsystem.model.Restaurant;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,11 +26,11 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     Optional<Restaurant> getByName(String name);
 
-    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE r.id=:id AND d.date=:date")
-    List<Restaurant> getWithDishesByDate(@Param("id") int id, @Param("date") LocalDate date);
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE r.id=:id AND d.date=:date")
+    Restaurant getWithDishesByDate(@Param("id") int id, @Param("date") LocalDate date);
 
     @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE d.date=:date ORDER BY r.name ASC")
-    List<Restaurant> getWithDishesByDate(@Param("date") LocalDate date);
+    List<Restaurant> getAllWithDishesByDate(@Param("date") LocalDate date);
 
     @Override
     List<Restaurant> findAll(Sort sort);

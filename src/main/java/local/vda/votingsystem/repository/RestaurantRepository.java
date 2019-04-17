@@ -15,9 +15,9 @@ public interface RestaurantRepository {
 
     Restaurant getByName(String name);
 
-    List<Restaurant> getWithDishesByDate(int id, LocalDate date);
+    Restaurant getWithDishesByDate(int id, LocalDate date);
 
-    List<Restaurant> getWithDishesByDate(LocalDate date);
+    List<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     List<Restaurant> getAll();
 }

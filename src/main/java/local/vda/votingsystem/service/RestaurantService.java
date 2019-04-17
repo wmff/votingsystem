@@ -17,9 +17,9 @@ public interface RestaurantService {
 
     Restaurant create(Restaurant restaurant);
 
-    List<Restaurant> getWithMealsByDate(int id, LocalDate date);
+    Restaurant getWithDishesByDate(int id, LocalDate date) throws NotFoundException;
 
-    List<Restaurant> getWithMealsByDate(LocalDate date);
+    List<Restaurant> getAllWithDishesByDate(LocalDate date);
 
     List<Restaurant> getAll();
 }

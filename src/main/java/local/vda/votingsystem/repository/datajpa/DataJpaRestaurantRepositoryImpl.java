@@ -39,13 +39,13 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getWithDishesByDate(int id, LocalDate date) {
+    public Restaurant getWithDishesByDate(int id, LocalDate date) {
         return crudRestaurantRepository.getWithDishesByDate(id, date);
     }
 
     @Override
-    public List<Restaurant> getWithDishesByDate(LocalDate date) {
-        return crudRestaurantRepository.getWithDishesByDate(date);
+    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+        return crudRestaurantRepository.getAllWithDishesByDate(date);
     }
 
     @Override

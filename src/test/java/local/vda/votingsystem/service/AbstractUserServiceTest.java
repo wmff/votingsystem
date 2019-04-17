@@ -2,6 +2,7 @@ package local.vda.votingsystem.service;
 
 import local.vda.votingsystem.model.Role;
 import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.repository.JpaUtil;
 import local.vda.votingsystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,8 @@ import static local.vda.votingsystem.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
+    @Autowired
+    private JpaUtil jpaUtil;
 
     @Autowired
     protected UserService service;
@@ -27,6 +31,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @BeforeEach
     void setUp() throws Exception {
         cacheManager.getCache("users").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
@@ -95,5 +100,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         assertFalse(service.get(USER_ID).isEnabled());
         service.enable(USER_ID, true);
         assertTrue(service.get(USER_ID).isEnabled());
+    }
+
+    @Test
+    void testValidation() throws Exception {
+        validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Collections.emptySet())), ConstraintViolationException.class);
     }
 }

@@ -51,13 +51,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getWithMealsByDate(int id, LocalDate date) {
+    public Restaurant getWithDishesByDate(int id, LocalDate date) {
         return checkNotFoundWithId(repository.getWithDishesByDate(id, date), id);
     }
 
     @Override
-    public List<Restaurant> getWithMealsByDate(LocalDate date) {
-        return repository.getWithDishesByDate(date);
+    public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
+        return repository.getAllWithDishesByDate(date);
     }
 
     @Override
