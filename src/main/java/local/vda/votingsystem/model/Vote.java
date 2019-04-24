@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
@@ -13,7 +14,7 @@ import java.util.StringJoiner;
 public class Vote extends AbstractBaseEntity {
     @Column(name = "date_time", nullable = false)
     @NotNull
-    private LocalDateTime dateTime;
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -32,15 +33,15 @@ public class Vote extends AbstractBaseEntity {
 
     public Vote(Integer id) {
         super(id);
-        this.dateTime = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Restaurant getRestaurant() {
@@ -63,9 +64,9 @@ public class Vote extends AbstractBaseEntity {
     public String toString() {
         return new StringJoiner(", ", Vote.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("dateTime=" + dateTime)
-                .add("user=" + user)
-                .add("restaurant=" + restaurant)
+                .add("date=" + date)
+//                .add("user=" + user)
+//                .add("restaurant=" + restaurant)
                 .toString();
     }
 }

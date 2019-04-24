@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
 public interface VoteService {
     Vote set(int restaurantId, int userId);
 
-    Vote get(int userId, LocalDateTime dateTime);
+    Vote get(int userId, LocalDate date);
 }

@@ -41,7 +41,7 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @OrderBy("dateTime DESC")
+    @OrderBy("date DESC")
     protected List<Vote> votes;
 
     public User() {

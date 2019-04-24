@@ -25,7 +25,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote set(int restaurantId, int userId) {
         checkNotFoundWithId(restaurantRepository.get(restaurantId), restaurantId);
-        Vote vote = get(userId, LocalDateTime.now());
+        Vote vote = get(userId, LocalDate.now());
         if (!vote.isNew()) {
             if (LocalTime.now().isAfter(TIME_END_VOTING)) {
                 throw new RuntimeException("time voting exprired");
@@ -35,7 +35,8 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote get(int userId, LocalDateTime dateTime) {
-        return checkNotFoundWithId(voteRepository.get(userId, dateTime), userId);
+    public Vote get(int userId, LocalDate date) {
+        return checkNotFoundWithId(voteRepository.get(userId, date), userId);
+//        return voteRepository.get(userId, dateTime);
     }
 }

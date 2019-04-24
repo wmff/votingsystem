@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Repository
 public class DataJpaVoteRepositoryImpl implements VoteRepository {
@@ -29,7 +29,7 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     }
 
     @Override
-    public Vote get(int userId, LocalDateTime dateTime) {
-        return crudVoteRepository.findByUserIdAndDateTime(userId, dateTime);
+    public Vote get(int userId, LocalDate date) {
+        return crudVoteRepository.findByUserIdAndDate(userId, date).orElse(new Vote());
     }
 }
