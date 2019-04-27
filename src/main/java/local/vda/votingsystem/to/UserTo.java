@@ -1,6 +1,7 @@
 package local.vda.votingsystem.to;
 
-import local.vda.votingsystem.HasId;
+import local.vda.votingsystem.HasEmail;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,18 +9,18 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.StringJoiner;
 
-public class UserTo implements HasId, Serializable {
+public class UserTo extends BaseTo implements HasEmail, Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     @NotBlank
     @Size(min = 2, max = 100)
+    @SafeHtml
     private String name;
 
     @Email
     @NotBlank
     @Size(max = 100)
+    @SafeHtml
     private String email;
 
     @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
@@ -33,16 +34,6 @@ public class UserTo implements HasId, Serializable {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getPassword() {

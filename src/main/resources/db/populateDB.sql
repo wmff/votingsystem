@@ -12,8 +12,8 @@ FROM USERS;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
 INSERT INTO users (NAME, EMAIL, PASSWORD) VALUES
-('User', 'user@yandex.ru', 'password'),
-('Admin', 'admin@gmail.com', 'admin');
+('User', 'user@yandex.ru', '{noop}password'),
+('Admin', 'admin@gmail.com', '{noop}admin');
 
 INSERT INTO user_roles (ROLE, USER_ID)
 VALUES ('ROLE_USER', 100000),

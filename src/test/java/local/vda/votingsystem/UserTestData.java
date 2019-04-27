@@ -1,5 +1,6 @@
 package local.vda.votingsystem;
 
+import local.vda.votingsystem.web.json.JsonUtil;
 import org.springframework.test.web.servlet.ResultMatcher;
 import local.vda.votingsystem.model.Role;
 import local.vda.votingsystem.model.User;
@@ -19,7 +20,7 @@ public class UserTestData {
     public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public static void assertMatch(User actual, User expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "votes");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "registered", "votes", "password");
     }
 
     public static void assertMatch(Iterable<User> actual, User... expected) {
@@ -27,7 +28,7 @@ public class UserTestData {
     }
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("registered", "votes").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("registered", "votes", "password").isEqualTo(expected);
     }
 
     public static ResultMatcher contentJson(User... expected) {
@@ -36,5 +37,9 @@ public class UserTestData {
 
     public static ResultMatcher contentJson(User expected) {
         return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }

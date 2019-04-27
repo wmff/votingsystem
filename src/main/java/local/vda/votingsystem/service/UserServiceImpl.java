@@ -1,21 +1,24 @@
 package local.vda.votingsystem.service;
 
 import local.vda.votingsystem.AuthorizedUser;
+import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.repository.UserRepository;
+import local.vda.votingsystem.to.UserTo;
+import local.vda.votingsystem.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import local.vda.votingsystem.model.User;
-import local.vda.votingsystem.repository.UserRepository;
-import local.vda.votingsystem.util.exception.NotFoundException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
+import static local.vda.votingsystem.util.UserUtil.prepareToSave;
+import static local.vda.votingsystem.util.UserUtil.updateFromTo;
 import static local.vda.votingsystem.util.ValidationUtil.checkNotFound;
 import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
@@ -23,17 +26,20 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user, passwordEncoder));
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -63,9 +69,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        checkNotFoundWithId(repository.save(user), user.getId());
+        checkNotFoundWithId(repository.save(prepareToSave(user, passwordEncoder)), user.getId());
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @org.springframework.transaction.annotation.Transactional
+    @Override
+    public void update(UserTo userTo) {
+        User user = updateFromTo(get(userTo.getId()), userTo);
+        repository.save(prepareToSave(user, passwordEncoder));
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     @Transactional
     public void enable(int id, boolean enabled) {
@@ -75,7 +90,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.getByEmail(email.toLowerCase());
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");

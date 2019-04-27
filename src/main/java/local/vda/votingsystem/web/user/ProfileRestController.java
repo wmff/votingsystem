@@ -1,22 +1,49 @@
 package local.vda.votingsystem.web.user;
 
-import org.springframework.stereotype.Controller;
+import local.vda.votingsystem.AuthorizedUser;
 import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.to.UserTo;
+import local.vda.votingsystem.util.UserUtil;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import static local.vda.votingsystem.web.SecurityUtil.authUserId;
+import javax.validation.Valid;
+import java.net.URI;
 
-@Controller
+@RestController
+@RequestMapping(ProfileRestController.REST_URL)
 public class ProfileRestController extends AbstractUserController {
+    static final String REST_URL = "/rest/profile";
 
-    public User get() {
-        return super.get(authUserId());
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@AuthenticationPrincipal AuthorizedUser authUser) {
+        return super.get(authUser.getId());
     }
 
-    public void delete() {
-        super.delete(authUserId());
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@AuthenticationPrincipal AuthorizedUser authUser) {
+        super.delete(authUser.getId());
     }
 
-    public void update(User user) {
-        super.update(user, authUserId());
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {
+        User created = super.create(UserUtil.createNewFromTo(userTo));
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@Valid @RequestBody UserTo userTo, @AuthenticationPrincipal AuthorizedUser authUser) {
+        super.update(userTo, authUser.getId());
     }
 }

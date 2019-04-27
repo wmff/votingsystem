@@ -2,6 +2,7 @@ package local.vda.votingsystem.service;
 
 
 import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.to.UserTo;
 import local.vda.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface UserService {
     User getByEmail(String email) throws NotFoundException;
 
     void update(User user);
+
+    void update(UserTo user);
 
     List<User> getAll();
 
