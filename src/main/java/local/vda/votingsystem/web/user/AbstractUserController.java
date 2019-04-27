@@ -1,14 +1,11 @@
 package local.vda.votingsystem.web.user;
 
-import local.vda.votingsystem.model.AbstractBaseEntity;
 import local.vda.votingsystem.model.User;
 import local.vda.votingsystem.service.UserService;
 import local.vda.votingsystem.to.UserTo;
-import local.vda.votingsystem.util.exception.ModificationRestrictionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 

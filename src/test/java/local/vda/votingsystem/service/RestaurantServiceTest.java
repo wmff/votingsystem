@@ -36,6 +36,12 @@ class RestaurantServiceTest extends AbstractRestaurantServiceTest {
     }
 
     @Test
+    void getAllWithDishesToday() throws Exception {
+        List<Restaurant> restaurants = service.getAllWithDishesByDate(LocalDate.now());
+        assertMatch(restaurants, RESTAURANT_2);
+    }
+
+    @Test
     void getAllWithDishesByDateNotFound() throws Exception {
         assertMatch(service.getAllWithDishesByDate(LocalDate.of(2000, Month.APRIL, 1)), List.of());
     }

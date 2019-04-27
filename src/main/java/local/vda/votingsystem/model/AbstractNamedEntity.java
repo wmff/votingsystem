@@ -1,5 +1,6 @@
 package local.vda.votingsystem.model;
 
+import local.vda.votingsystem.HasName;
 import local.vda.votingsystem.View;
 import org.hibernate.validator.constraints.SafeHtml;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
 
 
 @MappedSuperclass
-public abstract class AbstractNamedEntity extends AbstractBaseEntity {
+public abstract class AbstractNamedEntity extends AbstractBaseEntity implements HasName {
 
     @NotBlank
     @Size(min = 2, max = 100)
