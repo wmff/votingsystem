@@ -19,4 +19,5 @@ public interface DishService {
 
     Dish create(Dish dish, int restaurantId);
 
+    Dish getByDateAndName(LocalDate date, String name);
 }

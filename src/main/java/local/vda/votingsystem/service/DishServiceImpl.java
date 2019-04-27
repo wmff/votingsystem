@@ -50,4 +50,9 @@ public class DishServiceImpl implements DishService {
         Assert.notNull(dish, "dish must not be null");
         return repository.save(dish, restaurantId);
     }
+
+    @Override
+    public Dish getByDateAndName(LocalDate date, String name) {
+        return repository.getByDateAndName(date, name);
+    }
 }

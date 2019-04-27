@@ -1,6 +1,8 @@
 package local.vda.votingsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import local.vda.votingsystem.HasDate;
+import local.vda.votingsystem.HasName;
 import local.vda.votingsystem.View;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,7 +15,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "dishes_unique_restaurant_id_date_idx")})
-public class Dish extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity implements HasDate {
     @Column(name = "date", nullable = false)
     @NotNull
     private LocalDate date;

@@ -2,14 +2,12 @@ package local.vda.votingsystem.service;
 
 import local.vda.votingsystem.DishTestData;
 import local.vda.votingsystem.model.Dish;
-import local.vda.votingsystem.model.Restaurant;
 import local.vda.votingsystem.repository.JpaUtil;
 import local.vda.votingsystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
@@ -104,5 +102,11 @@ public abstract class AbstractDishServiceTest extends AbstractServiceTest {
     void testValidation() throws Exception {
         validateRootCause(() -> service.create(new Dish(null, " ", 1, DATE_1, RESTAURANT_1), RESTAURANT_1_ID), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new Dish(null, "name", -1, DATE_1, RESTAURANT_1), RESTAURANT_1_ID), ConstraintViolationException.class);
+    }
+
+    @Test
+    void testGetByDateAndNameAndRestaurant() throws Exception {
+        Dish result = service.getByDateAndName(DISH1.getDate(), DISH1.getName());
+        assertMatch(result, DISH1);
     }
 }

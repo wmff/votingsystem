@@ -29,4 +29,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @SuppressWarnings("JpaQlInspection")
     @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId AND d.date BETWEEN :startDate AND :endDate ORDER BY d.date DESC")
     List<Dish> getBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("restaurantId") int restaurantId);
+
+    @Query("SELECT d from Dish d WHERE d.date=:date AND d.name=:name")
+    Dish getByDateName(@Param("date") LocalDate date, @Param("name") String name);
 }

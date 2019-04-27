@@ -16,4 +16,6 @@ public interface DishRepository {
     List<Dish> getByDate(int restaurantId, LocalDate date);
 
     List<Dish> getBetween(LocalDate startDate, LocalDate endDate, int restaurantId);
+
+    Dish getByDateAndName(LocalDate date, String name);
 }

@@ -25,7 +25,7 @@ public class UniqueNameValidator implements org.springframework.validation.Valid
         HasName restaurant = ((HasName) target);
         Restaurant dbRestaurant = repository.getByName(restaurant.getName().toLowerCase());
         if (dbRestaurant != null && !dbRestaurant.getId().equals(restaurant.getId())) {
-            errors.rejectValue("name", ExceptionInfoHandler.EXCEPTION_RESTAURANT_DUPLICATE_NAME);
+            errors.rejectValue("name", ExceptionInfoHandler.EXCEPTION_DUPLICATE_NAME);
         }
     }
 }
