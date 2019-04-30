@@ -17,6 +17,7 @@ import static local.vda.votingsystem.VoteTestData.*;
 import static local.vda.votingsystem.util.DateTimeUtil.TIME_END_VOTING;
 import static local.vda.votingsystem.util.exception.ErrorType.DATA_NOT_FOUND;
 import static local.vda.votingsystem.util.exception.VoteTimeException.EXCEPTION_TIME_END_VOTING;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,7 +36,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void testVoteBeforeTimeEnd() throws Exception {
         TIME_END_VOTING = LocalTime.MAX;
-        ResultActions actions = mockMvc.perform(post(REST_URL)
+        ResultActions actions = mockMvc.perform(get(REST_URL)
                 .param("restaurantId", String.valueOf(RESTAURANT_1_ID))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -49,7 +50,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void testVoteAfterTimeEnd() throws Exception {
         TIME_END_VOTING = LocalTime.MIN;
-        ResultActions actions = mockMvc.perform(post(REST_URL)
+        ResultActions actions = mockMvc.perform(get(REST_URL)
                 .param("restaurantId", String.valueOf(RESTAURANT_1_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
@@ -63,7 +64,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void testReVoteAfterTimeEnd() throws Exception {
         TIME_END_VOTING = LocalTime.MIN;
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        ResultActions action = mockMvc.perform(get(REST_URL)
                 .param("restaurantId", String.valueOf(RESTAURANT_1_ID))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isNotAcceptable())
@@ -76,7 +77,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void testReVoteBeforeTimeEnd() throws Exception {
         TIME_END_VOTING = LocalTime.MAX;
-        ResultActions actions = mockMvc.perform(post(REST_URL)
+        ResultActions actions = mockMvc.perform(get(REST_URL)
                 .param("restaurantId", String.valueOf(RESTAURANT_1_ID))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -89,7 +90,7 @@ public class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testBadVote() throws Exception {
-        mockMvc.perform(post(REST_URL)
+        mockMvc.perform(get(REST_URL)
                 .param("restaurantId", "1")
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isUnprocessableEntity())

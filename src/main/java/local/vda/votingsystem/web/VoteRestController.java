@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(VoteRestController.REST_URL)
@@ -25,7 +22,7 @@ public class VoteRestController {
     @Autowired
     private VoteService service;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@RequestParam int restaurantId,
                                      @AuthenticationPrincipal AuthorizedUser authUser) {
         Vote created = service.set(restaurantId, authUser.getId());

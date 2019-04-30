@@ -85,7 +85,7 @@ public class DishAdminRestController {
 
     @PutMapping(value = "/{dishId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Dish dish, @PathVariable("restaurantId") int restaurantId, @PathVariable int dishId) {
+    public void update(@Validated(View.Web.class) @RequestBody Dish dish, @PathVariable int restaurantId, @PathVariable int dishId) {
         log.info("update {} with id={}", dish, dishId);
         assureIdConsistent(dish, dishId);
         service.update(dish, restaurantId);

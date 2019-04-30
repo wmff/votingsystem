@@ -24,6 +24,7 @@ public class DataJpaDishRepositoryImpl implements DishRepository {
             return null;
         }
         dish.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+        dish.setDate(LocalDate.now());
         return crudDishRepository.save(dish);
     }
 

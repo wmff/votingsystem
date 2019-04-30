@@ -35,11 +35,11 @@ public class DishTestData {
 
 
     public static Dish getCreated() {
-        return new Dish(null, "created dish", 100, of(2015, Month.JUNE, 1), RESTAURANT_1);
+        return new Dish("created dish", 100, RESTAURANT_1);
     }
 
     public static Dish getUpdated() {
-        return new Dish(DISH1_ID, "updated dish 1", 300, of(2019, Month.MARCH, 21), RESTAURANT_1);
+        return new Dish(DISH1_ID, "updated dish 1", 300, LocalDate.now(), RESTAURANT_1);
     }
 
     public static void assertMatch(Dish actual, Dish expected) {

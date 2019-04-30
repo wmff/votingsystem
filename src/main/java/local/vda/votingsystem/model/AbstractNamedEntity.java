@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity implements HasName {
     @NotBlank
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100, message = "${validatedValue} must between {min} and {max}")
     @Column(name = "name", nullable = false)
     @SafeHtml(groups = {View.Web.class})
     protected String name;

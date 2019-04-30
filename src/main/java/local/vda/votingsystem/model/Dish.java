@@ -16,12 +16,11 @@ import java.util.StringJoiner;
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "dishes_unique_restaurant_id_date_idx")})
 public class Dish extends AbstractNamedEntity implements HasDate {
     @Column(name = "date", nullable = false)
-    @NotNull
     private LocalDate date;
 
     @Column(name = "price", nullable = false)
     @NotNull
-    @Range(min = 1, max = 1000000)
+    @Range(min = 1, max = 1000000, message = "${validatedValue} must between {min} and {max}")
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,6 +35,10 @@ public class Dish extends AbstractNamedEntity implements HasDate {
 
     public Dish(Dish dish) {
         this(dish.id, dish.name, dish.price, dish.date, dish.restaurant);
+    }
+
+    public Dish(String name, int price, Restaurant restaurant) {
+        this(null, name, price, LocalDate.now(), restaurant);
     }
 
     public Dish(Integer id, String name, int price, LocalDate date, Restaurant restaurant) {

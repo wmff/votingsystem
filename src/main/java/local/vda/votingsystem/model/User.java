@@ -23,13 +23,13 @@ public class User extends AbstractNamedEntity implements HasEmail {
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 100, message = "${validatedValue} is higher than {max}")
     @SafeHtml(groups = {View.Web.class})
     private String email;
 
     @Column(name = "password", nullable = false)
     @NotBlank
-    @Size(min = 5, max = 100)
+    @Size(min = 5, max = 100, message = "${validatedValue} must between {min} and {max}")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
