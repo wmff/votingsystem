@@ -18,8 +18,6 @@ import static local.vda.votingsystem.util.exception.ErrorType.VALIDATION_ERROR;
 import static local.vda.votingsystem.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 import static local.vda.votingsystem.web.user.ProfileRestController.REST_URL;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

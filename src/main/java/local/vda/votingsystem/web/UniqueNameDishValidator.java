@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 
 @Component
 public class UniqueNameDishValidator implements org.springframework.validation.Validator {
-
     @Autowired
     private DishRepository repository;
 

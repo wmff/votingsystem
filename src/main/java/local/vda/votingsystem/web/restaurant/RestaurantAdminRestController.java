@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantAdminRestController extends AbstractRestaurantController {
-
     public static final String REST_URL = "/rest/admin/restaurants";
 
     @Override
@@ -57,5 +56,4 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
     public void update(@Validated(View.Web.class) @RequestBody Restaurant restaurant, @PathVariable int id) {
         super.update(restaurant, id);
     }
-
 }

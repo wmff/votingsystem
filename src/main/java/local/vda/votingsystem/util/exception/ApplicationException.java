@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import java.util.Arrays;
 
 public class ApplicationException extends RuntimeException {
-
     private final ErrorType type;
     private final String msgCode;
     private final HttpStatus httpStatus;
@@ -38,5 +37,4 @@ public class ApplicationException extends RuntimeException {
     public String[] getArgs() {
         return args;
     }
-
 }

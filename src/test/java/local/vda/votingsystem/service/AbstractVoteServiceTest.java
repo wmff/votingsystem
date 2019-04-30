@@ -20,12 +20,12 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
     protected VoteService service;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
-    void set() throws Exception {
+    void testSet() {
         Vote created = service.set(RESTAURANT_1_ID, USER_ID);
         assertEquals(RESTAURANT_1_ID, created.getRestaurant().getId());
         assertEquals(USER_ID, created.getUser().getId());

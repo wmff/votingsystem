@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")

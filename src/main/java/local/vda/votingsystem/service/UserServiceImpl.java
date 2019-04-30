@@ -24,7 +24,6 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
-
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 

@@ -29,13 +29,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     private CacheManager cacheManager;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         cacheManager.getCache("users").clear();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
-    void create() throws Exception {
+    void testCreate() {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", false, new Date(), Collections.singleton(Role.ROLE_USER));
         User created = service.create(new User(newUser));
         newUser.setId(created.getId());
@@ -44,43 +44,43 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void duplicateMailCreate() throws Exception {
+    void testDuplicateMailCreate() {
         assertThrows(DataAccessException.class, () ->
                 service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER)));
     }
 
     @Test
-    void delete() throws Exception {
+    void testDelete() {
         service.delete(USER_ID);
         assertMatch(service.getAll(), ADMIN);
     }
 
     @Test
-    void deletedNotFound() throws Exception {
+    void testDeletedNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.delete(1));
     }
 
     @Test
-    void get() throws Exception {
+    void testGet() {
         User user = service.get(ADMIN_ID);
         assertMatch(user, ADMIN);
     }
 
     @Test
-    void getNotFound() throws Exception {
+    void testGetNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.get(1));
     }
 
     @Test
-    void getByEmail() throws Exception {
+    void testGetByEmail() {
         User user = service.getByEmail("admin@gmail.com");
         assertMatch(user, ADMIN);
     }
 
     @Test
-    void update() throws Exception {
+    void testUpdate() {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
@@ -89,13 +89,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getAll() throws Exception {
+    void testGetAll() {
         List<User> all = service.getAll();
         assertMatch(all, ADMIN, USER);
     }
 
     @Test
-    void enable() {
+    void testEnable() {
         service.enable(USER_ID, false);
         assertFalse(service.get(USER_ID).isEnabled());
         service.enable(USER_ID, true);
@@ -103,7 +103,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void testValidation() throws Exception {
+    void testValidation() {
         validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
     }

@@ -17,7 +17,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * @link https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers
  */
 public class JacksonObjectMapper extends ObjectMapper {
-
     private static final ObjectMapper MAPPER = new JacksonObjectMapper();
 
     private JacksonObjectMapper() {

@@ -26,13 +26,13 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
     private CacheManager cacheManager;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         cacheManager.getCache("restaurants").clear();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
-    void create() throws Exception {
+    void testCreate() {
         Restaurant newRestaurant = new Restaurant(null, "new restaurant");
         Restaurant created = service.create(new Restaurant(newRestaurant));
         newRestaurant.setId(created.getId());
@@ -41,62 +41,62 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
     }
 
     @Test
-    void duplicateNameCreate() throws Exception {
+    void testDuplicateNameCreate() {
         assertThrows(DataAccessException.class, () ->
                 service.create(new Restaurant(null, "restaurant 1")));
     }
 
     @Test
-    void delete() throws Exception {
+    void testDelete() {
         service.delete(RESTAURANT_1_ID);
         assertMatch(service.getAll(), RESTAURANT_2);
     }
 
     @Test
-    void deletedNotFound() throws Exception {
+    void testDeletedNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.delete(1));
     }
 
     @Test
-    void get() throws Exception {
+    void testGet() {
         Restaurant restaurant = service.get(RESTAURANT_1_ID);
         assertMatch(restaurant, RESTAURANT_1);
     }
 
     @Test
-    void getNotFound() throws Exception {
+    void testGetNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.get(1));
     }
 
     @Test
-    void getByName() throws Exception {
+    void testGetByName() {
         Restaurant restaurant = service.getByName(RESTAURANT_1_NAME);
         assertMatch(restaurant, RESTAURANT_1);
     }
 
     @Test
-    void getByNameNotFound() throws Exception {
+    void testGetByNameNotFound() {
         assertThrows(NotFoundException.class, () ->
                 service.getByName("1"));
     }
 
     @Test
-    void update() throws Exception {
+    void testUpdate() {
         Restaurant updated = getUpdated();
         service.update(updated);
         assertMatch(service.get(RESTAURANT_1_ID), updated);
     }
 
     @Test
-    void getAll() throws Exception {
+    void testGetAll() {
         List<Restaurant> all = service.getAll();
         assertMatch(all, RESTAURANTS);
     }
 
     @Test
-    void testValidation() throws Exception {
+    void testValidation() {
         validateRootCause(() -> service.create(new Restaurant(null, "  ")), ConstraintViolationException.class);
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 
 @Component
 public class UniqueMailValidator implements org.springframework.validation.Validator {
-
     @Autowired
     private UserRepository repository;
 

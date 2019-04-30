@@ -2,7 +2,6 @@ package local.vda.votingsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import local.vda.votingsystem.HasDate;
-import local.vda.votingsystem.HasName;
 import local.vda.votingsystem.View;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

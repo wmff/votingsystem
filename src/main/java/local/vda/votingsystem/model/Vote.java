@@ -8,13 +8,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_time", "restaurant_id"}, name = "votes_unique_date_time_restaurant_id_idx")})
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "votes_unique_date_restaurant_id_idx")})
 public class Vote extends AbstractBaseEntity {
-    @Column(name = "date_time", nullable = false)
+    @Column(name = "date", nullable = false)
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate date = LocalDate.now();
@@ -35,9 +34,21 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(Integer id) {
-        super(id);
-        this.date = LocalDate.now();
+    public Vote(Vote vote) {
+        this.date = vote.getDate();
+        this.restaurant = vote.getRestaurant();
+        this.user = vote.getUser();
+    }
+
+    public Vote(Restaurant restaurant, User user) {
+        this.restaurant = restaurant;
+        this.user = user;
+    }
+
+    public Vote(int id, Restaurant restaurant, User user) {
+        this.id = id;
+        this.restaurant = restaurant;
+        this.user = user;
     }
 
     public LocalDate getDate() {
@@ -69,8 +80,6 @@ public class Vote extends AbstractBaseEntity {
         return new StringJoiner(", ", Vote.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("date=" + date)
-//                .add("user=" + user)
-//                .add("restaurant=" + restaurant)
                 .toString();
     }
 }

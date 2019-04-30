@@ -1,10 +1,10 @@
 package local.vda.votingsystem.repository.datajpa;
 
+import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-import local.vda.votingsystem.model.User;
-import local.vda.votingsystem.repository.UserRepository;
 
 import java.util.List;
 

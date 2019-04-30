@@ -47,7 +47,8 @@ public class DishAdminRestControllerTest extends AbstractControllerTest {
     void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + "1")
                 .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(ErrorType.DATA_NOT_FOUND));
     }
 
     @Test
@@ -69,7 +70,8 @@ public class DishAdminRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(delete(REST_URL + "1")
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(ErrorType.DATA_NOT_FOUND));
     }
 
     @Test

@@ -63,13 +63,12 @@ abstract public class AbstractControllerTest {
     @BeforeEach
     void setUp() {
         cacheManager.getCache("users").clear();
-        if (jpaUtil != null) {
-            jpaUtil.clear2ndLevelHibernateCache();
-        }
+        cacheManager.getCache("restaurants").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     private String getMessage(String code) {
-        return messageUtil.getMessage(code, MessageUtil.RU_LOCALE);
+        return messageUtil.getMessage(code, MessageUtil.LOCALE);
     }
 
     public ResultMatcher errorType(ErrorType type) {

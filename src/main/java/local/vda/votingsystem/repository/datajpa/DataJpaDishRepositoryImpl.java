@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public class DataJpaDishRepositoryImpl implements DishRepository {
-
     @Autowired
     private CrudDishRepository crudDishRepository;
 

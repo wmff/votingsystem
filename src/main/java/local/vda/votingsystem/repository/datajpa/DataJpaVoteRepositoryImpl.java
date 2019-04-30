@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Repository
 public class DataJpaVoteRepositoryImpl implements VoteRepository {
-
     @Autowired
     private CrudVoteRepository crudVoteRepository;
 

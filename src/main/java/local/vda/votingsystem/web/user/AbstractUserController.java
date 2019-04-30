@@ -15,7 +15,6 @@ import static local.vda.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static local.vda.votingsystem.util.ValidationUtil.checkNew;
 
 public abstract class AbstractUserController {
-
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

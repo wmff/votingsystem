@@ -2,7 +2,6 @@ package local.vda.votingsystem.util;
 
 
 import local.vda.votingsystem.HasId;
-import local.vda.votingsystem.model.AbstractBaseEntity;
 import local.vda.votingsystem.util.exception.ErrorType;
 import local.vda.votingsystem.util.exception.IllegalRequestDataException;
 import local.vda.votingsystem.util.exception.NotFoundException;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 public class ValidationUtil {
-
     private ValidationUtil() {
     }
 

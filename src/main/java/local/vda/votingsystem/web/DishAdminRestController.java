@@ -3,7 +3,6 @@ package local.vda.votingsystem.web;
 import local.vda.votingsystem.View;
 import local.vda.votingsystem.model.Dish;
 import local.vda.votingsystem.service.DishService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

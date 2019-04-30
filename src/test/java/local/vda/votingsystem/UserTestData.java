@@ -1,16 +1,16 @@
 package local.vda.votingsystem;
 
-import local.vda.votingsystem.web.json.JsonUtil;
-import org.springframework.test.web.servlet.ResultMatcher;
 import local.vda.votingsystem.model.Role;
 import local.vda.votingsystem.model.User;
+import local.vda.votingsystem.web.json.JsonUtil;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static local.vda.votingsystem.TestUtil.readFromJsonMvcResult;
 import static local.vda.votingsystem.TestUtil.readListFromJsonMvcResult;
 import static local.vda.votingsystem.model.AbstractBaseEntity.START_SEQ;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTestData {
     public static final int USER_ID = START_SEQ;

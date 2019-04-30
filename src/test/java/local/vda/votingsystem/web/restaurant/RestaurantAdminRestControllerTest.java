@@ -54,7 +54,7 @@ public class RestaurantAdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RESTAURANT_2));
+                .andExpect(contentJson(getRestaurantWithDish()));
     }
 
     @Test

@@ -1,6 +1,5 @@
 package local.vda.votingsystem.web;
 
-import local.vda.votingsystem.AuthorizedUser;
 import local.vda.votingsystem.util.ValidationUtil;
 import local.vda.votingsystem.util.exception.ApplicationException;
 import local.vda.votingsystem.util.exception.ErrorType;

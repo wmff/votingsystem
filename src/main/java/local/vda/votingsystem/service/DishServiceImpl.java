@@ -13,7 +13,6 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class DishServiceImpl implements DishService {
-
     @Autowired
     private DishRepository repository;
 
