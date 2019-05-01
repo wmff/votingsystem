@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static local.vda.votingsystem.RestaurantTestData.RESTAURANT_1_ID;
 import static local.vda.votingsystem.UserTestData.USER_ID;
+import static local.vda.votingsystem.util.DateTimeUtil.TIME_END_VOTING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
@@ -26,6 +28,7 @@ public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
 
     @Test
     void testSet() {
+        TIME_END_VOTING = LocalTime.MAX;
         Vote created = service.set(RESTAURANT_1_ID, USER_ID);
         assertEquals(RESTAURANT_1_ID, created.getRestaurant().getId());
         assertEquals(USER_ID, created.getUser().getId());

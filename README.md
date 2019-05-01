@@ -24,6 +24,11 @@ P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Asume that your API will be used by a frontend developer to build frontend on top of that.
 
 ## How to run
+Set system variable `VOTINGSYSTEM_ROOT` value project location root directory.
+example for linux:
+```
+export VOTINGSYSTEM_ROOT="~/votingsystem"
+``` 
 
 ## How to use
 Example curl commands:
