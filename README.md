@@ -29,6 +29,10 @@ example for linux:
 ```
 export VOTINGSYSTEM_ROOT="~/votingsystem"
 ``` 
+and run:
+```
+mvn clean package cargo:run -P hsqldb
+```
 
 ## How to use
 Example curl commands:
