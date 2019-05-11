@@ -35,8 +35,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public List<Dish> getByDate(int restaurantId, LocalDate date) {
-        date = (date == null) ? LocalDate.now() : date;
-        return repository.getByDate(restaurantId, date);
+        return repository.getByDate(restaurantId, (date == null) ? LocalDate.now() : date);
     }
 
     @Override
