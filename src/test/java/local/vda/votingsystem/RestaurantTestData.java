@@ -19,13 +19,13 @@ public class RestaurantTestData {
     public static final Restaurant RESTAURANT_1 = new Restaurant(RESTAURANT_1_ID, RESTAURANT_1_NAME);
     public static final Restaurant RESTAURANT_2 = new Restaurant(RESTAURANT_1_ID + 1, RESTAURANT_2_NAME);
 
+    public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_1, RESTAURANT_2);
+
     public static Restaurant getRestaurantWithDish() {
         Restaurant restaurantWithDishes = new Restaurant(RESTAURANT_2);
         restaurantWithDishes.setDishes(List.of(DISH9));
         return restaurantWithDishes;
     }
-
-    public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_1, RESTAURANT_2);
 
     public static Restaurant getCreated() {
         return new Restaurant(null, "Созданный ресторан");
