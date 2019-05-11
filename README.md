@@ -1,5 +1,7 @@
 # REST API for voting system (graduation project)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2da6c3531a084fee82801b99ffd7598c)](https://app.codacy.com/app/wmff/votingsystem?utm_source=github.com&utm_medium=referral&utm_content=wmff/votingsystem&utm_campaign=Badge_Grade_Dashboard)
+
 ## The task is:
 Build a voting system for deciding where to have lunch.
 
