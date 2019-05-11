@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class VoteTestData {
     public static final Vote VOTE1 = new Vote(START_SEQ + 13, RESTAURANT_1, USER);
-    public static final Vote VOTE2 = new Vote(START_SEQ + 17, RESTAURANT_1, ADMIN);
+    public static final Vote VOTE2 = new Vote(START_SEQ + 18, RESTAURANT_1, ADMIN);
 
     public static void assertMatch(Vote actual, Vote expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "restaurant");

@@ -1,5 +1,7 @@
 # REST API for voting system (graduation project)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2da6c3531a084fee82801b99ffd7598c)](https://app.codacy.com/app/wmff/votingsystem?utm_source=github.com&utm_medium=referral&utm_content=wmff/votingsystem&utm_campaign=Badge_Grade_Dashboard)
+
 ## The task is:
 Build a voting system for deciding where to have lunch.
 
@@ -24,6 +26,15 @@ P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Asume that your API will be used by a frontend developer to build frontend on top of that.
 
 ## How to run
+Set system variable `VOTINGSYSTEM_ROOT` value project location root directory.
+example for linux:
+```
+export VOTINGSYSTEM_ROOT="~/votingsystem"
+``` 
+and run:
+```
+mvn clean package cargo:run -P hsqldb
+```
 
 ## How to use
 Example curl commands:
