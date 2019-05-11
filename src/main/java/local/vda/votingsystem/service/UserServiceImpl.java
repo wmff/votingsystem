@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     @Override
     public void update(UserTo userTo) {
         User user = updateFromTo(get(userTo.getId()), userTo);
