@@ -85,11 +85,6 @@ curl http://localhost:8080/votingsystem/rest/admin/restaurants/100002 --user adm
 curl http://localhost:8080/votingsystem/rest/admin/restaurants/100003/withDishes --user admin@gmail.com:admin
 ```
 
-#### Get restaurant by id with dishes:
-```
-curl http://localhost:8080/votingsystem/rest/admin/restaurants/100003/withDishes --user admin@gmail.com:admin
-```
-
 #### Create restaurant:
 ```
 curl -H 'Content-Type:application/json;charset=UTF-8' -X POST -d '{"name": "New Restaurant"}' http://localhost:8080/votingsystem/rest/admin/restaurants --user admin@gmail.com:admin
@@ -165,7 +160,7 @@ curl -H 'Content-Type:application/json;charset=UTF-8' -X PUT -d '{"name": "Updat
 ### User get restaurants
 #### User get all restaurants with today dishes 
 ```
-curl http://localhost:8080/votingsystem/rest/restaurants --user user@yandex.ru:password
+curl http://localhost:8080/votingsystem/rest/restaurants
 ```
 
 #### User get restaurant by name
