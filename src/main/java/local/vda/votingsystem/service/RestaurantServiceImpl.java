@@ -4,6 +4,8 @@ import local.vda.votingsystem.model.Restaurant;
 import local.vda.votingsystem.repository.RestaurantRepository;
 import local.vda.votingsystem.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -33,17 +35,20 @@ public class RestaurantServiceImpl implements RestaurantService {
         return checkNotFound(repository.getByName(name), "name=" + name);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void update(Restaurant restaurant) throws NotFoundException {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -55,6 +60,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return checkNotFoundWithId(repository.getWithDishesByDate(id, date), id);
     }
 
+    @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAllWithDishesByDate(LocalDate date) {
         return repository.getAllWithDishesByDate(date);

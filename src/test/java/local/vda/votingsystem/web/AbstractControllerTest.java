@@ -16,6 +16,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Objects;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -62,8 +64,7 @@ abstract public class AbstractControllerTest {
 
     @BeforeEach
     void setUp() {
-        cacheManager.getCache("users").clear();
-        cacheManager.getCache("restaurants").clear();
+        Objects.requireNonNull(cacheManager.getCache("restaurants")).clear();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 

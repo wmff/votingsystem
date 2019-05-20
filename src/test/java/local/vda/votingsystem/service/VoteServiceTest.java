@@ -27,9 +27,9 @@ public class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void testSet() {
+    void testCreateOrUpdate() {
         TIME_END_VOTING = LocalTime.MAX;
-        Vote created = service.set(RESTAURANT_1_ID, USER_ID);
+        Vote created = service.createOrUpdate(RESTAURANT_1_ID, USER_ID);
         assertEquals(RESTAURANT_1_ID, created.getRestaurant().getId());
         assertEquals(USER_ID, created.getUser().getId());
         assertEquals(LocalDate.now(), created.getDate());

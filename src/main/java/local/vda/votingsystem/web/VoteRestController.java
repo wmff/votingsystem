@@ -19,13 +19,16 @@ public class VoteRestController {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private VoteService service;
+    private final VoteService service;
+
+    public VoteRestController(VoteService service) {
+        this.service = service;
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@RequestParam int restaurantId,
                                      @AuthenticationPrincipal AuthorizedUser authUser) {
-        Vote created = service.set(restaurantId, authUser.getId());
+        Vote created = service.createOrUpdate(restaurantId, authUser.getId());
         log.info("created {}", created);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }

@@ -30,7 +30,6 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @BeforeEach
     void setUp() {
-        cacheManager.getCache("users").clear();
         jpaUtil.clear2ndLevelHibernateCache();
     }
 

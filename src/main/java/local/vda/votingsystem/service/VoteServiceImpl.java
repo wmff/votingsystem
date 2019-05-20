@@ -15,14 +15,18 @@ import static local.vda.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteServiceImpl implements VoteService {
-    @Autowired
-    private VoteRepository voteRepository;
+    private final VoteRepository voteRepository;
+
+    private final RestaurantRepository restaurantRepository;
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    public VoteServiceImpl(VoteRepository voteRepository, RestaurantRepository restaurantRepository) {
+        this.voteRepository = voteRepository;
+        this.restaurantRepository = restaurantRepository;
+    }
 
     @Override
-    public Vote set(int restaurantId, int userId) {
+    public Vote createOrUpdate(int restaurantId, int userId) {
         checkNotFoundWithId(restaurantRepository.get(restaurantId), restaurantId);
         Vote vote = get(userId, LocalDate.now());
         if (!vote.isNew() && LocalTime.now().isAfter(TIME_END_VOTING)) {
