@@ -2,8 +2,6 @@ package local.vda.votingsystem.service;
 
 import local.vda.votingsystem.TimingExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -19,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(TimingExtension.class)
 abstract class AbstractServiceTest {
 
-    @Autowired
-    private Environment env;
+//    @Autowired
+//    private Environment env;
 
     //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778
     <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
